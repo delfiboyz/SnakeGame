@@ -5,6 +5,10 @@ import random
 # Inisialisasi Pygame
 pygame.init()
 
+# Font waktu
+time_font = pygame.font.SysFont(None, 30)
+start_time = time.time()
+
 # Warna
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
@@ -57,6 +61,9 @@ def show_game_over_screen():
     screen.blit(game_over_text, (screen_width // 2 - game_over_text.get_width() // 2, screen_height // 2 - game_over_text.get_height() // 2))
     screen.blit(play_again_text, (screen_width // 2 - play_again_text.get_width() // 2, screen_height // 2 + game_over_text.get_height() // 2))
     pygame.display.update()
+    elapsed_time = round(time.time() - start_time)
+    time_text = font_style.render("Time: " + str(elapsed_time) + "s", True, WHITE)
+    screen.blit(time_text, (10, 40))
     waiting = True
     while waiting:
         for event in pygame.event.get():
@@ -133,6 +140,11 @@ while True:
     # Menampilkan skor
     score_text = font_style.render("Score: " + str(score), True, WHITE)
     screen.blit(score_text, (10, 10))
+    
+    # Menampilkan waktu
+    elapsed_time = round(time.time() - start_time)
+    time_text = time_font.render("Time: " + str(elapsed_time) + "s", True, WHITE)
+    screen.blit(time_text, (10, 40))
 
     # Update layar
     pygame.display.update()
@@ -150,5 +162,10 @@ while True:
 
     # Mengecek jika game over
     if game_over:
+        elapsed_time = round(time.time() - start_time)
+        score_text = font_style.render("Score: " + str(score), True, WHITE)
+        time_text = font_style.render("Time: " + str(elapsed_time) + "s", True, WHITE)
+        screen.blit(score_text, (10, 10))
+        screen.blit(time_text, (10, 40))
         show_game_over_screen()
         play_again()
