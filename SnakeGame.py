@@ -56,14 +56,17 @@ game_over_font = pygame.font.SysFont(None, 48)
 
 # Fungsi untuk menampilkan pesan "Game Over"
 def show_game_over_screen():
+    screen.fill(BLACK)  # Mengisi layar dengan warna hitam
     game_over_text = game_over_font.render("Game Over", True, RED)
     play_again_text = font_style.render("Press SPACE to Play Again", True, WHITE)
     screen.blit(game_over_text, (screen_width // 2 - game_over_text.get_width() // 2, screen_height // 2 - game_over_text.get_height() // 2))
     screen.blit(play_again_text, (screen_width // 2 - play_again_text.get_width() // 2, screen_height // 2 + game_over_text.get_height() // 2))
-    pygame.display.update()
     elapsed_time = round(time.time() - start_time)
-    time_text = font_style.render("Time: " + str(elapsed_time) + "s", True, WHITE)
-    screen.blit(time_text, (10, 40))
+    time_text = font_style.render("Time: " + str(elapsed_time) + " second", True, WHITE)
+    score_text = font_style.render("Score: " + str(score), True, WHITE)
+    screen.blit(time_text, (screen_width // 2 - time_text.get_width() // 2, screen_height // 2.5 - game_over_text.get_height() // 2))
+    screen.blit(score_text, (screen_width // 2 - score_text.get_width() // 2, screen_height // 3 - game_over_text.get_height() // 2))
+    pygame.display.update()
     waiting = True
     while waiting:
         for event in pygame.event.get():
@@ -77,7 +80,7 @@ def show_game_over_screen():
 
 # Fungsi untuk memulai permainan kembali
 def play_again():
-    global snake_x, snake_y, snake_block, snake_length, x_change, y_change, score, game_over
+    global snake_x, snake_y, snake_block, snake_length, x_change, y_change, score, game_over, start_time
     snake_block.clear()
     snake_length = 1
     snake_x = screen_width // 2
@@ -87,6 +90,7 @@ def play_again():
     y_change = 0
     score = 0
     game_over = False
+    start_time = time.time()
 
 # Permainan berjalan
 game_over = False
@@ -140,7 +144,7 @@ while True:
     # Menampilkan skor
     score_text = font_style.render("Score: " + str(score), True, WHITE)
     screen.blit(score_text, (10, 10))
-    
+
     # Menampilkan waktu
     elapsed_time = round(time.time() - start_time)
     time_text = time_font.render("Time: " + str(elapsed_time) + "s", True, WHITE)
@@ -162,10 +166,5 @@ while True:
 
     # Mengecek jika game over
     if game_over:
-        elapsed_time = round(time.time() - start_time)
-        score_text = font_style.render("Score: " + str(score), True, WHITE)
-        time_text = font_style.render("Time: " + str(elapsed_time) + "s", True, WHITE)
-        screen.blit(score_text, (10, 10))
-        screen.blit(time_text, (10, 40))
         show_game_over_screen()
         play_again()
