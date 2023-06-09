@@ -1,6 +1,6 @@
 # SnakeGame
 snake game with python
-#playgame
+# playgame
 press keyUP, keyDOWN , keyLEFT , or keyRIGHT
-#PlayAgain
+# PlayAgain
 press space!
