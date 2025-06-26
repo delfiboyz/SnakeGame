@@ -20,7 +20,7 @@ Ini adalah implementasi sederhana dari game klasik **Snake** menggunakan [Pygame
 
 ### 1. Clone Repository
 ```bash
-git clone https://github.com/username/snake-game-pygame.git
+git clone https://github.com/delfiboyz/snake-game-pygame.git
 cd snake-game-pygame
 ```
 
