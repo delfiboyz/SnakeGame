@@ -1,5 +1,10 @@
 # 🐍 Snake Game — Edisi Modern
 
+[![CI](https://github.com/delfiboyz/SnakeGame/actions/workflows/ci.yml/badge.svg)](https://github.com/delfiboyz/SnakeGame/actions/workflows/ci.yml)
+[![Web](https://github.com/delfiboyz/SnakeGame/actions/workflows/pages.yml/badge.svg)](https://github.com/delfiboyz/SnakeGame/actions/workflows/pages.yml)
+
+### ▶️ [Main sekarang di browser](https://delfiboyz.github.io/SnakeGame/)
+
 Game klasik **Snake** yang ditulis ulang dengan [pygame-ce](https://pyga.me/) (Pygame Community Edition) dan Python modern. Tampilan neon, animasi halus, efek partikel, suara prosedural, tiga mode permainan, papan skor tersimpan, dan bisa dimainkan **langsung di browser**.
 
 ---
@@ -56,12 +61,19 @@ python main.py       # langsung
 
 ### 🌐 Main di Browser
 
+Versi web otomatis di-build dengan [pygbag](https://pygame-web.github.io/) (Python → WebAssembly) dan di-deploy ke **GitHub Pages** setiap ada push ke `master` (workflow `.github/workflows/pages.yml`). Skor dan pengaturan tersimpan di `localStorage` browser.
+
+Build sendiri secara lokal:
+
 ```bash
 pip install -e ".[web]"
-pygbag .
+./scripts/build-web.sh                              # hasil di build/web-src/snakegame/build/web
+python -m pygbag build/web-src/snakegame            # jalankan server lokal di http://localhost:8000
 ```
 
-Lalu buka `http://localhost:8000`. Folder `build/web` hasilnya bisa diunggah ke GitHub Pages / itch.io.
+Folder hasil build juga bisa diunggah ke itch.io atau hosting statis lain.
+
+> Klik/ketuk layar sekali setelah halaman terbuka — browser butuh interaksi pengguna sebelum memutar suara.
 
 ---
 
@@ -90,12 +102,14 @@ SnakeGame/
 │   └── config.py     # Ukuran grid & palet warna
 ├── tests/            # Unit test pytest
 ├── docs/             # Screenshot
+├── scripts/
+│   └── build-web.sh  # Build versi web dengan pygbag
 ├── main.py           # Titik masuk (juga untuk pygbag)
 ├── SnakeGame.py      # Kompatibilitas dengan versi lama
 └── pyproject.toml
 ```
 
-Data skor disimpan di `~/.local/share/snakegame/data.json` (Linux), `~/Library/Application Support/snakegame/` (macOS), atau `%APPDATA%\snakegame\` (Windows). Ubah lokasinya dengan variabel lingkungan `SNAKEGAME_DATA`.
+Data skor disimpan di `~/.local/share/snakegame/data.json` (Linux), `~/Library/Application Support/snakegame/` (macOS), atau `%APPDATA%\snakegame\` (Windows). Ubah lokasinya dengan variabel lingkungan `SNAKEGAME_DATA`. Di versi web, data disimpan di `localStorage` browser.
 
 ---
 
