@@ -245,7 +245,10 @@ class App:
 
     def _handle_key(self, key: int) -> None:
         if key == pygame.K_F11:
-            pygame.display.toggle_fullscreen()
+            try:
+                pygame.display.toggle_fullscreen()
+            except pygame.error:
+                pass  # tidak didukung di sebagian platform (mis. browser)
         elif key == pygame.K_m:
             self.store.settings.muted = self.sounds.toggle_mute()
             self.store.save()

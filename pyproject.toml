@@ -13,7 +13,7 @@ dependencies = ["pygame-ce>=2.5"]
 
 [project.optional-dependencies]
 dev = ["pytest>=8", "ruff>=0.6"]
-web = ["pygbag>=0.9"]
+web = ["pygbag==0.9.3"]
 
 [project.scripts]
 snakegame = "snakegame.app:main"

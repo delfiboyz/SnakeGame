@@ -33,3 +33,26 @@ def test_corrupt_file_is_ignored(tmp_path):
     store = Store(path)
     assert store.scores == {}
     assert store.settings.difficulty == "Normal"
+
+
+class FakeLocalStorage:
+    def __init__(self):
+        self.items = {}
+
+    def getItem(self, key):  # noqa: N802 - meniru API JavaScript
+        return self.items.get(key)
+
+    def setItem(self, key, value):  # noqa: N802
+        self.items[key] = value
+
+
+def test_browser_local_storage(tmp_path):
+    storage = FakeLocalStorage()
+    store = Store(local_storage=storage)
+    assert store.scores == {}  # getItem mengembalikan None saat kosong
+    store.submit("Portal/Hard", ScoreEntry(7, 9, 12.0))
+    store.save()
+    assert "snakegame" in storage.items
+
+    loaded = Store(local_storage=storage)
+    assert loaded.best("Portal/Hard") == 7
